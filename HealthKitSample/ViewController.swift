@@ -13,6 +13,12 @@ class ViewController: UIViewController {
 
     let healthStore: HKHealthStore = HKHealthStore()
 
+    @IBOutlet var stepsTitleLabel: UILabel!
+    @IBOutlet var distanceTitleLabel: UILabel!
+
+    @IBOutlet var stepsLabel: UILabel!
+    @IBOutlet var distanceLabel: UILabel!
+
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
@@ -30,6 +36,10 @@ class ViewController: UIViewController {
                 print("Error")
             }
         })
+        stepsTitleLabel.layer.masksToBounds = true
+        stepsTitleLabel.layer.cornerRadius = 30.0
+        distanceTitleLabel.layer.masksToBounds = true
+        distanceTitleLabel.layer.cornerRadius = 30.0
     }
 
     override func didReceiveMemoryWarning() {
