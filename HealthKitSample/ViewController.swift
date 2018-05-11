@@ -7,12 +7,29 @@
 //
 
 import UIKit
+import HealthKit
 
 class ViewController: UIViewController {
+
+    let healthStore: HKHealthStore = HKHealthStore()
 
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
+
+        let types = Set([
+            HKQuantityType.quantityType(forIdentifier: HKQuantityTypeIdentifier.distanceWalkingRunning)!,
+            HKQuantityType.quantityType(forIdentifier: HKQuantityTypeIdentifier.stepCount)!
+        ])
+
+        healthStore.requestAuthorization(toShare: types, read: types, completion: {success, error in
+            if success {
+                print("Success")
+            }
+            else {
+                print("Error")
+            }
+        })
     }
 
     override func didReceiveMemoryWarning() {

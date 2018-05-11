@@ -14,6 +14,8 @@
 		87FA1F7F20A5417100875ADD /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 87FA1F7D20A5417100875ADD /* LaunchScreen.storyboard */; };
 		87FA1F8A20A5417100875ADD /* HealthKitSampleTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87FA1F8920A5417100875ADD /* HealthKitSampleTests.swift */; };
 		87FA1F9520A5417100875ADD /* HealthKitSampleUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87FA1F9420A5417100875ADD /* HealthKitSampleUITests.swift */; };
+		87FA1FA520A542F200875ADD /* HealthKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 87FA1FA420A542F200875ADD /* HealthKit.framework */; };
+		87FA1FA720A5434200875ADD /* HealthKitUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 87FA1FA620A5434200875ADD /* HealthKitUI.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -47,6 +49,9 @@
 		87FA1F9020A5417100875ADD /* HealthKitSampleUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = HealthKitSampleUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		87FA1F9420A5417100875ADD /* HealthKitSampleUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthKitSampleUITests.swift; sourceTree = "<group>"; };
 		87FA1F9620A5417100875ADD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		87FA1FA220A542F200875ADD /* HealthKitSample.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = HealthKitSample.entitlements; sourceTree = "<group>"; };
+		87FA1FA420A542F200875ADD /* HealthKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = HealthKit.framework; path = System/Library/Frameworks/HealthKit.framework; sourceTree = SDKROOT; };
+		87FA1FA620A5434200875ADD /* HealthKitUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = HealthKitUI.framework; path = System/Library/Frameworks/HealthKitUI.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -54,6 +59,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				87FA1FA720A5434200875ADD /* HealthKitUI.framework in Frameworks */,
+				87FA1FA520A542F200875ADD /* HealthKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -81,6 +88,7 @@
 				87FA1F8820A5417100875ADD /* HealthKitSampleTests */,
 				87FA1F9320A5417100875ADD /* HealthKitSampleUITests */,
 				87FA1F7220A5417100875ADD /* Products */,
+				87FA1FA320A542F200875ADD /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -97,6 +105,7 @@
 		87FA1F7320A5417100875ADD /* HealthKitSample */ = {
 			isa = PBXGroup;
 			children = (
+				87FA1FA220A542F200875ADD /* HealthKitSample.entitlements */,
 				87FA1F7420A5417100875ADD /* AppDelegate.swift */,
 				87FA1F7620A5417100875ADD /* ViewController.swift */,
 				87FA1F7820A5417100875ADD /* Main.storyboard */,
@@ -123,6 +132,15 @@
 				87FA1F9620A5417100875ADD /* Info.plist */,
 			);
 			path = HealthKitSampleUITests;
+			sourceTree = "<group>";
+		};
+		87FA1FA320A542F200875ADD /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				87FA1FA620A5434200875ADD /* HealthKitUI.framework */,
+				87FA1FA420A542F200875ADD /* HealthKit.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -194,6 +212,11 @@
 					87FA1F7020A5417100875ADD = {
 						CreatedOnToolsVersion = 9.2;
 						ProvisioningStyle = Automatic;
+						SystemCapabilities = {
+							com.apple.HealthKit = {
+								enabled = 1;
+							};
+						};
 					};
 					87FA1F8420A5417100875ADD = {
 						CreatedOnToolsVersion = 9.2;
@@ -426,6 +449,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = HealthKitSample/HealthKitSample.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = DWJ5JEU523;
 				INFOPLIST_FILE = HealthKitSample/Info.plist;
@@ -441,6 +465,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = HealthKitSample/HealthKitSample.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = DWJ5JEU523;
 				INFOPLIST_FILE = HealthKitSample/Info.plist;
