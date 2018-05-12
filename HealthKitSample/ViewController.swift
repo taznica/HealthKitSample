@@ -25,7 +25,8 @@ class ViewController: UIViewController {
 
         let types = Set([
             HKQuantityType.quantityType(forIdentifier: HKQuantityTypeIdentifier.distanceWalkingRunning)!,
-            HKQuantityType.quantityType(forIdentifier: HKQuantityTypeIdentifier.stepCount)!
+            HKQuantityType.quantityType(forIdentifier: HKQuantityTypeIdentifier.stepCount)!,
+            HKQuantityType.quantityType(forIdentifier: HKQuantityTypeIdentifier.height)!
         ])
 
         healthStore.requestAuthorization(toShare: types, read: types, completion: {success, error in
@@ -40,6 +41,46 @@ class ViewController: UIViewController {
         stepsTitleLabel.layer.cornerRadius = 30.0
         distanceTitleLabel.layer.masksToBounds = true
         distanceTitleLabel.layer.cornerRadius = 30.0
+
+//        getSteps()
+        getHeight()
+    }
+
+    func getSteps() {
+        let dateFormatter: DateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy/MM/dd"
+        let startDate: Date = dateFormatter.date(from: "2018/05/07")!
+        let endDate: Date = dateFormatter.date(from: "2018/05/11")!
+
+        let type: HKQuantityType = HKQuantityType.quantityType(forIdentifier: HKQuantityTypeIdentifier.stepCount)!
+        let predicate: NSPredicate = HKQuery.predicateForSamples(withStart: startDate, end: endDate, options: [])
+        let sort: [NSSortDescriptor] = [NSSortDescriptor(key: HKSampleSortIdentifierStartDate, ascending: true)]
+
+        let query: HKSampleQuery = HKSampleQuery(sampleType: type, predicate: predicate, limit: 10, sortDescriptors: sort, resultsHandler: { (query, result, error) in
+            print(result?.first ?? 0)
+        })
+
+        print(healthStore.execute(query))
+    }
+    
+    func getHeight() {
+        let type: HKQuantityType = HKObjectType.quantityType(forIdentifier: HKQuantityTypeIdentifier.height)!
+        let sort: [NSSortDescriptor] = [NSSortDescriptor(key: HKSampleSortIdentifierStartDate, ascending: true)]
+        let query: HKSampleQuery = HKSampleQuery(sampleType: type, predicate: nil, limit: 1, sortDescriptors: sort, resultsHandler: { (query, result , error) in
+            if let e = error {
+                print("Error: \(e.localizedDescription)")
+                return
+            }
+            
+            DispatchQueue.main.async {
+                guard let r = result else {
+                    return
+                }
+                print(r)
+            }
+        })
+        
+        print(healthStore.execute(query))
     }
 
     override func didReceiveMemoryWarning() {
