@@ -60,4 +60,13 @@ extension HKHealthStore {
 
         getSteps(startDate: startDate, endDate: endDate, completion: completion)
     }
+
+
+    func getStepsOfTheDay(date: Date, completion: ((_ steps: Int) -> Void)!) {
+        let calendar = Calendar(identifier: .japanese)
+        let startDate: Date = calendar.startOfDay(for: date)
+        let endDate: Date = Date(timeIntervalSinceNow: startDate.timeIntervalSinceNow + 86400)
+
+        getSteps(startDate: startDate, endDate: endDate, completion: completion)
+    }
 }
