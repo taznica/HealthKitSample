@@ -50,23 +50,30 @@ extension HKHealthStore {
     }
 
 
-    func getStepsOfToday(completion: ((_ steps: Int) -> Void)!) {
-        let calender = Calendar(identifier: .japanese)
-        let startDate: Date = calender.startOfDay(for: Date())
-        let endDate: Date = Date(timeIntervalSinceNow: startDate.timeIntervalSinceNow + 86400)
-
-        print(startDate)
-        print(endDate)
-
-        getSteps(startDate: startDate, endDate: endDate, completion: completion)
-    }
-
-
     func getStepsOfTheDay(date: Date, completion: ((_ steps: Int) -> Void)!) {
         let calendar = Calendar(identifier: .japanese)
         let startDate: Date = calendar.startOfDay(for: date)
         let endDate: Date = Date(timeIntervalSinceNow: startDate.timeIntervalSinceNow + 86400)
 
         getSteps(startDate: startDate, endDate: endDate, completion: completion)
+    }
+
+
+    func getStepsOfToday(completion: ((_ steps: Int) -> Void)!) {
+        let calendar: Calendar = Calendar(identifier: .japanese)
+        let date: Date = Date()
+        let startDate: Date = calendar.startOfDay(for: date)
+        let type: HKQuantityType? = HKSampleType.quantityType(forIdentifier: HKQuantityTypeIdentifier.stepCount)
+
+        print("getStepsOfToday")
+
+        let observerQuery: HKObserverQuery = HKObserverQuery(sampleType: type!, predicate: nil, updateHandler: { query, completionHandler, error in
+            self.getSteps(startDate: startDate, endDate: Date(), completion: completion)
+            completionHandler()
+
+            print("observerQuery")
+        })
+
+        self.execute(observerQuery)
     }
 }
